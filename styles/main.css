@@ -22,8 +22,8 @@
 .grid div {
   border: 1px solid lightgrey;
   flex-grow: 1;
-  height: 10%;
-  width: 10%;
+  height: 5%;
+  width: 5%;
 }
 
 .grid div.player {
@@ -37,12 +37,13 @@
   background-image: url('https://i.imgur.com/PEZAGRM.png');
   background-repeat: no-repeat;
   background-size: 50%;
+  background-position: bottom center;
   cursor: pointer;
 }
 
 .grid div.alien {
-  background-image: url('https://i.imgur.com/PEZAGRM.png');
+  background-image: url('https://i.imgur.com/c7AvQuO.png');
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: contain;
   cursor: pointer;
 }

@@ -5,11 +5,11 @@ const startBtn = document.querySelector('#start')
 const aliens = []
 
 // Variables
-const width = 10
+const width = 20
 const gridCellCount =  width * width
 
-let playerPosition = 94
-let playerBeamPosition = playerPosition - 10
+let playerPosition = gridCellCount - (width / 2)
+let playerBeamPosition = playerPosition - width
 
 // The Grid
 function createGrid() {
@@ -19,7 +19,7 @@ function createGrid() {
     cells.push(cell)
     grid.appendChild(cell)
     
-    if (i > 10 && i < 19 || i > 20 && i < 29 || i > 30 && i < 39 || i > 40 && i < 49) {
+    if (i >= (gridCellCount / 10) && i < (width * 5)) {
       aliens.push(cell)
     }
   }
@@ -34,46 +34,51 @@ function addAliens() {
   })
 }
 
-function removePlayerAndBeam() {
+function removePlayerBeam() {
   cells[playerBeamPosition].classList.remove('playerBeam')
+}
+
+function addPlayerBeam() {
+  cells[playerBeamPosition].classList.add('playerBeam')
+}
+
+function removePlayer() {
   cells[playerPosition].classList.remove('player')
 }
 
-function addPlayerAndBeam() {
-  cells[playerBeamPosition].classList.add('playerBeam')
+function addPlayer() {
   cells[playerPosition].classList.add('player')
 }
 
-function handleKeyUp(e) {
+function handleKeyDown(e) {
   const x = playerPosition % width
-  removePlayerAndBeam()
+  removePlayerBeam()
+  removePlayer()
   switch (e.code) {
     case 'ArrowRight':
-      if (x < width - 2) {
+      if (x < width - 1) {
         playerPosition++
         playerBeamPosition++
       }
       break
     case 'ArrowLeft':
-      if (x > 1) {
+      if (x > 0) {
         playerPosition--
         playerBeamPosition--
       }
       break
-    case 'Space':
-      playerBeamPosition -= 80
-      break
   }
-  addPlayerAndBeam()
+  addPlayerBeam()
+  addPlayer()
 }
 
 function handleStart() {
   addAliens()
-  addPlayerAndBeam()
+  addPlayerBeam()
+  addPlayer()
 }
-
 
 // Events
 
 startBtn.addEventListener('click', handleStart)
-document.addEventListener('keyup', handleKeyUp)
+document.addEventListener('keydown', handleKeyDown)
