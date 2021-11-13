@@ -19,7 +19,7 @@ function createGrid() {
     cells.push(cell)
     grid.appendChild(cell)
     
-    if (i < 50 && i > 9) {
+    if (i > 10 && i < 19 || i > 20 && i < 29 || i > 30 && i < 39 || i > 40 && i < 49) {
       aliens.push(cell)
     }
   }
@@ -28,8 +28,7 @@ function createGrid() {
 createGrid()
 
 // Functions
-
-function createAliens() {
+function addAliens() {
   aliens.forEach(alien => {
     return alien.classList.add('alien')
   })
@@ -50,13 +49,13 @@ function handleKeyUp(e) {
   removePlayerAndBeam()
   switch (e.code) {
     case 'ArrowRight':
-      if (x < width - 1) {
+      if (x < width - 2) {
         playerPosition++
         playerBeamPosition++
       }
       break
     case 'ArrowLeft':
-      if (x > 0) {
+      if (x > 1) {
         playerPosition--
         playerBeamPosition--
       }
@@ -69,7 +68,7 @@ function handleKeyUp(e) {
 }
 
 function handleStart() {
-  createAliens()
+  addAliens()
   addPlayerAndBeam()
 }
 
