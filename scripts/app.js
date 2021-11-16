@@ -89,6 +89,7 @@ let playerBeamPosition = playerPosition - width
 let timerId = null
 let playerHasShot = false
 let score = 0
+let direction = 1
 // let alienBeamStartPosition =  aliens[Math.floor(Math.random() * aliens.length)]
 
 // The Grid And Aliens
@@ -127,18 +128,24 @@ function removeAliens() {
 
 function moveAliens() {
   const finalAlien = aliens[aliens.length - 1]
-  const x = playerPosition % width
-  console.log(x)
+  const x = finalAlien.currentIndex % width 
+  const y = aliens[0].currentIndex % width
     
-  if (x < width - 1) {
-    aliens.map(alien => {
-      alien.currentIndex = alien.currentIndex + 1
-    })
-  } else if (x > width - 1) {
+  if (x === width - 1 && direction === 1) {
     aliens.map(alien => {
       alien.currentIndex = alien.currentIndex + width
     })
-  }
+    direction = -1
+  } else if (y === 0 && direction === -1) {
+    aliens.map(alien => {
+      alien.currentIndex = alien.currentIndex + width
+    })
+    direction = 1
+  } else {
+    aliens.map(alien => {
+      alien.currentIndex = alien.currentIndex + direction
+    })
+  } 
 }
 
 function setTimer() {
@@ -147,7 +154,7 @@ function setTimer() {
     moveAliens()
     addAliens()
     return
-  },500)
+  },1000)
 }
 
 function addPlayer() {
