@@ -47,3 +47,11 @@
   background-size: contain;
   cursor: pointer;
 }
+
+.grid div.alienBeam {
+  background-image: url('https://i.imgur.com/lfYtg6D.png');
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+  cursor: pointer;
+}
