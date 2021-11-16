@@ -127,12 +127,14 @@ function removeAliens() {
 
 function moveAliens() {
   const finalAlien = aliens[aliens.length - 1]
+  const x = playerPosition % width
+  console.log(x)
     
-  if (finalAlien.currentIndex < 139) {
+  if (x < width - 1) {
     aliens.map(alien => {
       alien.currentIndex = alien.currentIndex + 1
     })
-  } else if (finalAlien.currentIndex === 139) {
+  } else if (x > width - 1) {
     aliens.map(alien => {
       alien.currentIndex = alien.currentIndex + width
     })
@@ -164,21 +166,31 @@ function removePlayerBeam() {
   cells[playerBeamPosition].classList.remove('playerBeam')
 }
 
+// function addAlienBeam() {
+//   cells[alienBeamStartPosition].classList.add('alienBeam')
+// }
+
+// function removeAlienBeam() {
+//   cells[alienBeamStartPosition].classList.remove('alienBeam')
+// }
+
 function handleKeyDown(e) {
   const x = playerPosition % width
-  removePlayer()
   switch (e.code) {
     case 'ArrowRight':
       if (x < width - 1) {
+        removePlayer()
         playerPosition++
       }
       break
     case 'ArrowLeft':
       if (x > 0) {
+        removePlayer()
         playerPosition--
       }
       break
     case 'Space':
+      e.preventDefault()
       if (playerHasShot === false) {
         playerHasShot = true
         handlePlayerBeam()
@@ -192,7 +204,7 @@ function handleKeyDown(e) {
 
 function handlePlayerBeam() {
   playerBeamPosition = playerPosition - width
-  timerId = window.setInterval(() => {
+  const timerId = window.setInterval(() => {
     if (playerBeamPosition <= width) {
       removePlayerBeam()
       playerHasShot = false
@@ -200,13 +212,18 @@ function handlePlayerBeam() {
       playerBeamPosition = playerPosition - width
       return
     } else if (cells[playerBeamPosition].classList.contains('alien')) {
-      playerHasShot = false
       killAlien()
+      clearInterval(timerId)
+      removePlayerBeam()
+      playerHasShot = false
+      playerBeamPosition = playerPosition - width
+      return
+    } else {
+      removePlayerBeam()
+      playerBeamPosition -= width
+      addPlayerBeam()
+      return
     }
-    removePlayerBeam()
-    playerBeamPosition -= width
-    addPlayerBeam()
-    return
   },150)
 }
 
@@ -215,15 +232,11 @@ function killAlien() {
   //   gameOver()
   // } else {
 
-  clearInterval(timerId)
-
   const alienIndex = aliens.find(alien => {
     return alien.currentIndex === playerBeamPosition
   })
 
   alienIndex.isAlive = false
-
-  removeAliens()
 
   score = score + 100
   scoreDisplay.textContent = score
@@ -234,27 +247,12 @@ function killAlien() {
 
 // function handleAlienBeam() {
 //   timerId = window.setInterval(() => {
-//     cells[alienBeamStartPosition].classList.remove('alienBeam')
-//     alienBeamPosition += width
-//     cells[alienBeamStartPosition].classList.add('alienBeam')
-//   }, 200) 
+//     removeAlienBeam()
+//     alienBeamStartPosition += width
+//     addAlienBeam()
+//     return
+//   },150) 
 // }
-
-  // timerId = window.setInterval(() => {
-  //   if (alienBeamStartPosition <= gridCellCount) {
-  //     removePlayerBeam()
-  //     clearInterval(timerId)
-  //     alienBeamStartPosition = alienBeamStartPosition + width
-  //     return
-  //   } else if (cells[playerBeamPosition].classList.contains('alien')) {
-  //     playerHasShot = false
-  //     killAlien()
-  //   }
-  //   removePlayerBeam()
-  //   playerBeamPosition -= width
-  //   addPlayerBeam()
-  //   return
-  // },150) 
 
 // function gameOver() {
 

@@ -17,6 +17,7 @@
   justify-content: center;
   height: 600px;
   width: 600px;
+  text-align: center;
 }
 
 .grid div {
