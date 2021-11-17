@@ -6,7 +6,6 @@ const scoreDisplay = document.querySelector('#score-display')
 const livesDisplay = document.querySelector('#lives-display')
 const livesFull = document.querySelector('#lives-full')
 
-
 // Variables
 const width = 20
 const gridCellCount =  width * width
@@ -110,8 +109,8 @@ createGrid()
 
 function handleStart() {
   setInterval(generateAlienBeamPosition, 5000)
-  setTimer()
   addPlayer()
+  setTimer()
 }
 
 function addAliens() {
@@ -133,8 +132,9 @@ function moveAliens() {
   const finalAlien = aliens[aliens.length - 1]
   const x = finalAlien.currentIndex % width 
   const y = aliens[0].currentIndex % width
-    
-  if (x === width - 1 && direction === 1) {
+  if (finalAlien.currentIndex >= gridCellCount - width) {
+    gameOver()
+  } else if (x === width - 1 && direction === 1) {
     aliens.map(alien => {
       alien.currentIndex = alien.currentIndex + width
     })
@@ -157,7 +157,7 @@ function setTimer() {
     moveAliens()
     addAliens()
     return
-  },1500)
+  },2000)
 }
 
 function addPlayer() {
@@ -175,10 +175,6 @@ function addPlayerBeam() {
 function removePlayerBeam() {
   cells[playerBeamPosition].classList.remove('playerBeam')
 }
-
-// function removeAlienBeam() {
-//   cells[alienBeamStartPosition].classList.remove('alienBeam')
-// }
 
 function handleKeyDown(e) {
   const x = playerPosition % width
@@ -233,23 +229,18 @@ function handlePlayerBeam() {
 }
 
 function killAlien() {
-  // if (aliens.isAlive <= 0) {
-  //   gameOver()
-  // } else {
-  removePlayerBeam()
-
-  const alienIndex = aliens.find(alien => {
-    return alien.currentIndex === playerBeamPosition
-  })
-
-  alienIndex.isAlive = false
-
-  score = score + 100
-  scoreDisplay.textContent = score
-
-  return
-
-  // }
+  if (aliens.isAlive === false) { // Need To Change!!!!!!!
+    gameOver()
+  } else {
+    removePlayerBeam()
+    const alienIndex = aliens.find(alien => {
+      return alien.currentIndex === playerBeamPosition
+    })
+    alienIndex.isAlive = false
+    score = score + 100
+    scoreDisplay.textContent = score
+    return
+  }
 }
 
 function generateAlienBeamPosition() {
@@ -268,13 +259,11 @@ function generateAlienBeamPosition() {
     } else if (alienBeamPosition >= gridCellCount - width) {
       cells[alienBeamPosition].classList.remove('alienBeam')
       clearInterval(timerId)
-      console.log('off board')
       return
     } else {
       cells[alienBeamPosition].classList.remove('alienBeam')
       alienBeamPosition += width
       cells[alienBeamPosition].classList.add('alienBeam')
-      console.log(alienBeamPosition)
       return
     }
   }, 200)
@@ -282,20 +271,18 @@ function generateAlienBeamPosition() {
 
 function loseLife() {
   lives = lives - 1
-  console.log(lives)
-  // if (lives === 0) {
-  //   gameOver()
-  // } else {
-  livesDisplay.textContent = lives
-  cells[playerPosition].classList.add('shake')
-  livesFull.classList.add('shake')
+  if (lives === 0) {
+    gameOver()
+  } else {
+    livesDisplay.textContent = lives
+    cells[playerPosition].classList.add('shake')
+    livesFull.classList.add('shake')
+  }
 }
 
-// }
-
-// function gameOver() {
-
-// }
+function gameOver() {
+  grid.textContent = 'game over'
+}
 
 // Events 
 
