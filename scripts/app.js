@@ -229,13 +229,17 @@ function handlePlayerBeam() {
 }
 
 function killAlien() {
-  if (aliens.isAlive === false) { // Need To Change!!!!!!!
+  const alienBeam = aliens.filter(alien => {
+    return alien.isAlive === true
+  })
+  if (alienBeam.length === 1) {
     gameOver()
   } else {
     removePlayerBeam()
     const alienIndex = aliens.find(alien => {
       return alien.currentIndex === playerBeamPosition
     })
+    console.log(alienBeam.length)
     alienIndex.isAlive = false
     score = score + 100
     scoreDisplay.textContent = score
@@ -247,7 +251,7 @@ function generateAlienBeamPosition() {
   const alienBeam = aliens.filter(alien => {
     return alien.isAlive === true
   })
-  
+
   let alienBeamPosition = alienBeam[Math.floor(Math.random() * alienBeam.length)].currentIndex
 
   const timerId = window.setInterval(() => {
