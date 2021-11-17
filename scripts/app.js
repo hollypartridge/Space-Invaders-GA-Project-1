@@ -3,6 +3,7 @@ const grid = document.querySelector('.grid')
 const cells = []
 const startBtn = document.querySelector('#start')
 const scoreDisplay = document.querySelector('#score-display')
+const livesDisplay = document.querySelector('#lives-display')
 
 
 // Variables
@@ -90,7 +91,7 @@ let timerId = null
 let playerHasShot = false
 let score = 0
 let direction = 1
-// let alienBeamStartPosition =  aliens[Math.floor(Math.random() * aliens.length)]
+let lives = 3
 
 // The Grid And Aliens
 function createGrid() {
@@ -107,6 +108,7 @@ createGrid()
 // Functions
 
 function handleStart() {
+  setInterval(generateAlienBeamPosition, 5000)
   setTimer()
   addPlayer()
 }
@@ -154,7 +156,7 @@ function setTimer() {
     moveAliens()
     addAliens()
     return
-  },1000)
+  },1500)
 }
 
 function addPlayer() {
@@ -172,10 +174,6 @@ function addPlayerBeam() {
 function removePlayerBeam() {
   cells[playerBeamPosition].classList.remove('playerBeam')
 }
-
-// function addAlienBeam() {
-//   cells[alienBeamStartPosition].classList.add('alienBeam')
-// }
 
 // function removeAlienBeam() {
 //   cells[alienBeamStartPosition].classList.remove('alienBeam')
@@ -219,9 +217,8 @@ function handlePlayerBeam() {
       playerBeamPosition = playerPosition - width
       return
     } else if (cells[playerBeamPosition].classList.contains('alien')) {
-      killAlien()
       clearInterval(timerId)
-      removePlayerBeam()
+      killAlien()
       playerHasShot = false
       playerBeamPosition = playerPosition - width
       return
@@ -231,13 +228,14 @@ function handlePlayerBeam() {
       addPlayerBeam()
       return
     }
-  },150)
+  },100)
 }
 
 function killAlien() {
   // if (aliens.isAlive <= 0) {
   //   gameOver()
   // } else {
+  removePlayerBeam()
 
   const alienIndex = aliens.find(alien => {
     return alien.currentIndex === playerBeamPosition
@@ -247,18 +245,49 @@ function killAlien() {
 
   score = score + 100
   scoreDisplay.textContent = score
+
   return
 
   // }
 }
 
-// function handleAlienBeam() {
-//   timerId = window.setInterval(() => {
-//     removeAlienBeam()
-//     alienBeamStartPosition += width
-//     addAlienBeam()
-//     return
-//   },150) 
+function generateAlienBeamPosition() {
+  const alienBeam = aliens.filter(alien => {
+    return alien.isAlive === true
+  })
+  
+  let alienBeamPosition = alienBeam[Math.floor(Math.random() * alienBeam.length)].currentIndex
+
+  const timerId = window.setInterval(() => {
+    if (cells[alienBeamPosition].classList.contains('player')) {
+      loseLife()
+      cells[alienBeamPosition].classList.remove('alienBeam')
+      clearInterval(timerId)
+      return
+    } else if (alienBeamPosition >= gridCellCount - width) {
+      cells[alienBeamPosition].classList.remove('alienBeam')
+      clearInterval(timerId)
+      console.log('off board')
+      return
+    } else {
+      cells[alienBeamPosition].classList.remove('alienBeam')
+      alienBeamPosition += width
+      cells[alienBeamPosition].classList.add('alienBeam')
+      console.log(alienBeamPosition)
+      return
+    }
+  }, 200)
+}
+
+function loseLife() {
+  lives = lives - 1
+  console.log(lives)
+  // if (lives === 0) {
+  //   gameOver()
+  // } else {
+  livesDisplay.textContent = lives
+}
+
 // }
 
 // function gameOver() {
