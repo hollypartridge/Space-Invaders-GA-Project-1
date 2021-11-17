@@ -285,7 +285,7 @@ function loseLife() {
 }
 
 function gameOver() {
-  grid.textContent = 'game over'
+  grid.textContent = `game over, your score was ${score}`
 }
 
 // Events 
