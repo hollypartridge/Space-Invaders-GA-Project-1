@@ -4,6 +4,7 @@ const cells = []
 const startBtn = document.querySelector('#start')
 const scoreDisplay = document.querySelector('#score-display')
 const livesDisplay = document.querySelector('#lives-display')
+const livesFull = document.querySelector('#lives-full')
 
 
 // Variables
@@ -286,6 +287,8 @@ function loseLife() {
   //   gameOver()
   // } else {
   livesDisplay.textContent = lives
+  cells[playerPosition].classList.add('shake')
+  livesFull.classList.add('shake')
 }
 
 // }
