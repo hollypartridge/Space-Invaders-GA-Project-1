@@ -276,6 +276,7 @@ function generateAlienBeamPosition() {
 function loseLife() {
   lives = lives - 1
   if (lives === 0) {
+    cells[playerPosition].classList.remove('player')
     gameOver()
   } else {
     livesDisplay.textContent = lives
@@ -285,7 +286,7 @@ function loseLife() {
 }
 
 function gameOver() {
-  window.clearInterval(timerId)
+  livesDisplay.textContent = lives
   grid.innerHTML = '<h1>' + 'game over' + '</h1>' + '<h2>' + 'your score was' + '</br>' + '</br>' + score + '</h2>' + '<h3>' + 'press reset to play again' + '</h3>'
   grid.style.backgroundColor = '#ec008c'
 }
