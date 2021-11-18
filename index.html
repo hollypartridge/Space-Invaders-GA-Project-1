@@ -11,20 +11,26 @@
 </head>
 <body>
   <div class="all">
-  <div class="controls">
-    <div class='buttons'>
-      <button id='start'>Start</button>
-      <button id='reset'>Reset</button>
+    <div class="controls">
+      <div class='info'>
+        <p id='score-full'>Score <span id='score-display'>0</span></p>
+        <p id="lives-full">Lives <span id='lives-display'>3</span></p>
+      </div>
+      <button class='buttons' id='start'>Start</button>
+        <div class='para'>
+      <p id='intructions'>rules</br></br>
+
+        kill all the aliens</br></br>
+        
+        space bar: shoot</br></br>
+        left & right keys: move</p>
+        </div>
+      <button class='buttons' id='reset'>Reset</button>
     </div>
-    <div class='info'>
-      <p>Score <span id='score-display'>0</span></p>
-      <p id="lives-full">Lives <span id='lives-display'>3</span></p>
+    <div class='grid-wrapper'>
+      <div class='grid'>
+      </div>
     </div>
   </div>
-  <div class='grid-wrapper'>
-    <div class='grid'>
-    </div>
-  </div>
-</div>
 </body>
 </html>

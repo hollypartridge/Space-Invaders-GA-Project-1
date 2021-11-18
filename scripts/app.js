@@ -5,6 +5,7 @@ const startBtn = document.querySelector('#start')
 const scoreDisplay = document.querySelector('#score-display')
 const livesDisplay = document.querySelector('#lives-display')
 const livesFull = document.querySelector('#lives-full')
+const resetBtn = document.querySelector('#reset')
 
 // Variables
 const width = 20
@@ -97,7 +98,6 @@ let lives = 3
 function createGrid() {
   for (let i = 0; i < gridCellCount; i++) {
     const cell = document.createElement('div')
-    cell.textContent = i
     cells.push(cell)
     grid.appendChild(cell)
   }
@@ -215,6 +215,7 @@ function handlePlayerBeam() {
       return
     } else if (cells[playerBeamPosition].classList.contains('alien')) {
       clearInterval(timerId)
+      cells[playerBeamPosition].classList.remove('alien')
       killAlien()
       playerHasShot = false
       playerBeamPosition = playerPosition - width
@@ -239,7 +240,6 @@ function killAlien() {
     const alienIndex = aliens.find(alien => {
       return alien.currentIndex === playerBeamPosition
     })
-    console.log(alienBeam.length)
     alienIndex.isAlive = false
     score = score + 100
     scoreDisplay.textContent = score
@@ -285,10 +285,20 @@ function loseLife() {
 }
 
 function gameOver() {
-  grid.textContent = `game over, your score was ${score}`
+  window.clearInterval(timerId)
+  grid.innerHTML = '<h1>' + 'game over' + '</h1>' + '<h2>' + 'your score was' + '</br>' + '</br>' + score + '</h2>' + '<h3>' + 'press reset to play again' + '</h3>'
+  grid.style.backgroundColor = '#ec008c'
 }
+
+function reset() {
+  window.clearInterval(timerId)
+  window.location.reload()
+}
+
+
 
 // Events 
 
 startBtn.addEventListener('click', handleStart)
 document.addEventListener('keydown', handleKeyDown)
+resetBtn.addEventListener('click', reset)
