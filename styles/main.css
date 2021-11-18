@@ -5,7 +5,7 @@
 }
 
 html {
-  background-image: url('https://i.imgur.com/aT27A1U.png');
+  background-image: url('../assets/background.png');
   background-size: 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -117,7 +117,7 @@ html {
 }
 
 .grid div.player {
-  background-image: url('https://i.imgur.com/9jOkryp.png');
+  background-image: url('../assets/player.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top center;
@@ -125,7 +125,7 @@ html {
 }
 
 .grid div.playerBeam {
-  background-image: url('https://i.imgur.com/d4g7xv5.png');
+  background-image: url('../assets/player-beam.png');
   background-repeat: no-repeat;
   background-size: 50%;
   background-position: bottom center;
@@ -133,7 +133,7 @@ html {
 }
 
 .grid div.alien {
-  background-image: url('https://i.imgur.com/c7AvQuO.png');
+  background-image: url('../assets/alien.png');
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
@@ -141,7 +141,7 @@ html {
 }
 
 .grid div.alienBeam {
-  background-image: url('https://i.imgur.com/trDEXhZ.png');
+  background-image: url('../assets/alien-beam.png');
   background-repeat: no-repeat;
   background-size: 55%;
   background-position: center;
