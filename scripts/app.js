@@ -6,6 +6,7 @@ const scoreDisplay = document.querySelector('#score-display')
 const livesDisplay = document.querySelector('#lives-display')
 const livesFull = document.querySelector('#lives-full')
 const resetBtn = document.querySelector('#reset')
+const audioPlayer = document.querySelector('#audio')
 
 // Variables
 const width = 20
@@ -84,7 +85,8 @@ const aliens = [{ currentIndex: 42, isAlive: true },
   { currentIndex: 133, isAlive: true },
   { currentIndex: 134, isAlive: true },
   { currentIndex: 135, isAlive: true },
-  { currentIndex: 136, isAlive: true }]
+  { currentIndex: 136, isAlive: true }
+]
 
 let playerPosition = gridCellCount - (width / 2)
 let playerBeamPosition = playerPosition - width
@@ -94,7 +96,7 @@ let score = 0
 let direction = 1
 let lives = 3
 
-// The Grid And Aliens
+// The Grid
 function createGrid() {
   for (let i = 0; i < gridCellCount; i++) {
     const cell = document.createElement('div')
@@ -132,8 +134,14 @@ function moveAliens() {
   const finalAlien = aliens[aliens.length - 1]
   const x = finalAlien.currentIndex % width 
   const y = aliens[0].currentIndex % width
-  if (finalAlien.currentIndex >= gridCellCount - width) {
+  audioPlayer.src = './assets/invadermove.wav'
+  audioPlayer.play()
+  const alienBeam = aliens.filter(alien => {
+    return alien.isAlive === true
+  })
+  if (finalAlien.currentIndex >= gridCellCount - width || lives === 0 || alienBeam.length === 0) {
     gameOver()
+    audioPlayer.pause()
   } else if (x === width - 1 && direction === 1) {
     aliens.map(alien => {
       alien.currentIndex = alien.currentIndex + width
@@ -196,6 +204,8 @@ function handleKeyDown(e) {
       if (playerHasShot === false) {
         playerHasShot = true
         handlePlayerBeam()
+        audioPlayer.src = './assets/shoot.wav'
+        audioPlayer.play()
       } else {
         return
       }
@@ -233,7 +243,9 @@ function killAlien() {
   const alienBeam = aliens.filter(alien => {
     return alien.isAlive === true
   })
-  if (alienBeam.length === 1) {
+  audioPlayer.src = './assets/invaderkilled.wav'
+  audioPlayer.play()
+  if (alienBeam.length === 0) {
     gameOver()
   } else {
     removePlayerBeam()
@@ -275,8 +287,9 @@ function generateAlienBeamPosition() {
 
 function loseLife() {
   lives = lives - 1
+  audioPlayer.src = './assets/explosion.wav'
+  audioPlayer.play()
   if (lives === 0) {
-    cells[playerPosition].classList.remove('player')
     gameOver()
   } else {
     livesDisplay.textContent = lives
@@ -286,9 +299,11 @@ function loseLife() {
 }
 
 function gameOver() {
-  livesDisplay.textContent = lives
   grid.innerHTML = '<h1>' + 'game over' + '</h1>' + '<h2>' + 'your score was' + '</br>' + '</br>' + score + '</h2>' + '<h3>' + 'press reset to play again' + '</h3>'
   grid.style.backgroundColor = '#ec008c'
+  cells[playerPosition].classList.remove('player')
+  playerHasShot = true
+  livesDisplay.textContent = lives
 }
 
 function reset() {
