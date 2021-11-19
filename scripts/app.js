@@ -165,7 +165,7 @@ function setTimer() {
     moveAliens()
     addAliens()
     return
-  },500)
+  },2000)
 }
 
 function addPlayer() {
