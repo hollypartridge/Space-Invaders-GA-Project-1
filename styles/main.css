@@ -5,7 +5,7 @@
 }
 
 html {
-  background-image: url('../assets/background.png');
+  background-color: #00ff0c;
   background-size: 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -76,6 +76,7 @@ html {
   background-color: #00ff0c;
   color: #ec008c;
   padding: 10px 0px;
+  cursor: pointer;
 }
 
 .buttons:hover {
@@ -121,7 +122,6 @@ html {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top center;
-  cursor: pointer;
 }
 
 .grid div.playerBeam {
@@ -129,15 +129,13 @@ html {
   background-repeat: no-repeat;
   background-size: 50%;
   background-position: bottom center;
-  cursor: pointer;
 }
 
 .grid div.alien {
   background-image: url('../assets/alien.png');
   background-repeat: no-repeat;
   background-size: contain;
-  cursor: pointer;
-  /* position: relative; */
+  position: relative;
 }
 
 .grid div.alienBeam {
@@ -145,17 +143,20 @@ html {
   background-repeat: no-repeat;
   background-size: 55%;
   background-position: center;
-  cursor: pointer;
+  position: relative;
 }
 
-/* .grid.alien.alienBeam::before {
+.grid .alien.alienBeam::before {
   content: '';
-  background-image: url('https://i.imgur.com/c7AvQuO.png');
+  background-image: url('../assets/alien.png');
   background-repeat: no-repeat;
   background-size: contain;
-  cursor: pointer;
   position: absolute;
-} */
+  height: 100%;
+  width: 100%;
+  top: 10%;
+  left: 0%;
+}
 
 .grid div.shake {
   animation: shake 0.5s 2;
