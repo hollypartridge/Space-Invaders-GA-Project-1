@@ -29,7 +29,7 @@ My game can be played [**here.**](https://hollypartridge.github.io/sei-project-0
 * Design logic for winning & visually display which player won
 * Include separate HTML / CSS / JavaScript files
 * Stick with KISS (Keep It Simple Stupid) and DRY (Don't Repeat Yourself) principles
-* Use Javascript for DOM manipulation
+* Use JavaScript for DOM manipulation
 * Use semantic markup for HTML and CSS (adhere to best practices)
 * Deploy your game online
 
@@ -47,7 +47,7 @@ My game can be played [**here.**](https://hollypartridge.github.io/sei-project-0
 * GitHub
 
 ## About the Game
-Space Invaders is a classic arcade game from the 80s. The player aims to shoot an invading alien armada, before it reaches the planet's surface using a mounted gun turret. The player can only move left or right. The aliens also move from left to right, and also down each time the reach the side of the screen. The aliens also periodically drop bombs towards the player. Once the player has destroyed a wave of aliens, the game starts again. The aim is to achieve the highest score possible before either being destroyed by the aliens, or allowing them to reach the planet's surface.
+Space Invaders is a classic arcade game from the 80s. The player aims to shoot an invading alien armada, before it reaches the planet's surface using a mounted gun turret. The player can only move left or right. The aliens also move from left to right, and down each time they reach the side of the screen. The aliens also periodically drop bombs towards the player. Once the player has destroyed a wave of aliens, the game starts again. The aim is to achieve the highest score possible before either being destroyed by the aliens, or allowing them to reach the planet's surface.
 
 ## Process
 
@@ -196,7 +196,7 @@ function generateAlienBeamPosition() {
 ```
 
 #### Collisions
-To work when out when collisions occurred, I implemented some logic to check whether an element was in the same position as another element. I did this within my `generateAlienBeamPosition` and `handlePlayerBeam` functions. Both of these functions contain other functions: `loselife` and `killAlien`, which then determine the result of these collisions.
+To work out when collisions occurred, I implemented some logic to check whether an element was in the same position as another element. I did this within my `generateAlienBeamPosition` and `handlePlayerBeam` functions. Both of these functions contain other functions: `loselife` and `killAlien`, which then determine the result of these collisions.
 
 In `generateAlienBeamPosition()`:
 
@@ -245,7 +245,7 @@ function killAlien() {
 }
 ```
 
-To deal with collision between the player and alien beam I created a `loseLife` function that removed a player's life each time a player was shot and displayed this by rendering the change to the DOM. I also added a sound effect for each time an player was shot and an animation that made the player's sprite and lives display shake.
+To deal with collision between the player and alien beam I created a `loseLife` function that removed a player's life each time a player was shot and displayed this by rendering the change to the DOM. I also added a sound effect for each time a player was shot and an animation that made the player's sprite and lives display shake.
 
 ```js
 function loseLife() {
@@ -307,7 +307,7 @@ Once invoked, my `gameOver` function changed the HTML (including the final score
 * I am really proud of this project as it was my first time creating a game (or any kind of dev project). 
 * The movement of the aliens, as this was the part of the project I was most nervous about.
 * The animation that causes the lives display and player to shake when hit.
-* Allowed me cement and further evolve my knowledge of JavaScript.
+* Allowed me to cement and further evolve my knowledge of JavaScript.
 * Increased my confidence in developing on my own.
 
 ## Future Improvements
@@ -321,4 +321,4 @@ Once invoked, my `gameOver` function changed the HTML (including the final score
 
 **JavaScript Fundamentals:** Creating the game was a great way to cement and expand my knowledge of JS, specifically around array methods.
 
-**Planning:** Creating the game highlighted how important it was to me to plan before hand what functionalities I wanted to included in my game. Creating smaller deadlines for each of these functionalities helped with my time management. 
+**Planning:** Creating the game highlighted how important it was to me to plan beforehand what functionalities I wanted to include in my game. Creating smaller deadlines for each of these functionalities helped with my time management. 
